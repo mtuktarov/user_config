@@ -20,9 +20,7 @@ read_link(){
 }
 
 my_location=$(read_link $(which $0))
-echo "my_location=${my_location}"
 my_dir="${my_location%/*}"
-echo "my_dir=${my_dir}"
 
 if [[ $(uname) == "Linux" ]] ; then
     if [ -f ${HOME}/.bashrc ] ; then
