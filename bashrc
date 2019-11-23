@@ -21,7 +21,7 @@ alias k=kubectl
 complete -F __start_kubectl k
 force_color_prompt=yes
 
-PS1='$(k=$? ; [[ $k == 0 ]] && echo "\[\033[01;32m\]$k" || echo "\[\033[01;31m\]$k") \[\033[1;36m\]\u\]\033[1;31m\]@\[\033[01;32m\]\h:\[\033[01;35m\]\w\[    \033[1;36m\]$(__git_ps1 "(%s)")\[\033[1;31m\]\$ \[\033[0m\]'
+PS1='$(k=$? ; [[ $k == 0 ]] && echo "\[\033[01;32m\]$k" || echo "\[\033[01;31m\]$k") \[\033[1;36m\]\u\]\033[1;31m\]@\[\033[01;32m\]\h:\[\033[01;35m\]\w\[\033[1;36m\]$(__git_ps1 "(%s)")\[\033[1;31m\]\$ \[\033[0m\]'
 
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUPSTREAM="auto"
