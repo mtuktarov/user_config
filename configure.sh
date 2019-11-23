@@ -48,3 +48,4 @@ if [ -f ${HOME}/.vimrc ] ; then
 fi  
 ln -fs ${my_dir}/vimrc ${HOME}/.vimrc
 
+git submodule update --init
