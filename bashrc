@@ -8,20 +8,20 @@ __git_ps1(){
     return 0
 }
 
-if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
-    . /usr/share/git-core/contrib/completion/git-prompt.sh
-fi
+[ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
+[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && source /usr/share/git-core/contrib/completion/git-prompt.sh
+[ -f /usr/local/etc/bash_completion.d/git-prompt.sh ] && source /usr/local/etc/bash_completion.d/git-prompt.sh
 
-if [ -f  /usr/local/etc/bash_completion.d/git-prompt.sh ] ; then
-    .  /usr/local/etc/bash_completion.d/git-prompt.sh
-fi
 
-source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
-alias k=kubectl
+
+
+which kubectl >/dev/null 2>&1 &&
+source <(kubectl completion bash) && # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+alias k=kubectl &&
 complete -F __start_kubectl k
 force_color_prompt=yes
 
-PS1='$(k=$? ; [[ $k == 0 ]] && echo "\[\033[01;32m\]$k" || echo "\[\033[01;31m\]$k") \[\033[1;36m\]\u\]\033[1;31m\]@\[\033[01;32m\]\h:\[\033[01;35m\]\w\[\033[1;36m\]$(__git_ps1 "(%s)")\[\033[1;31m\]\$ \[\033[0m\]'
+PS1="\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[34m\]\h\[\033[36m\]\w\[\e[32m\]\$(__git_ps1)\[\e[m\]$ "
 
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUPSTREAM="auto"
