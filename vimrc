@@ -1,3 +1,4 @@
+set rtp+=~/vim
 execute pathogen#infect()
 execute pathogen#helptags()
 syntax on
