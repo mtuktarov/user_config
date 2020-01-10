@@ -14,8 +14,9 @@ alias ll='ls -la'
 [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && source /usr/share/git-core/contrib/completion/git-prompt.sh
 [ -f /usr/local/etc/bash_completion.d/git-prompt.sh ] && source /usr/local/etc/bash_completion.d/git-prompt.sh
 
-
-
+clear_dns(){
+    [[ $(uname) == "Darwin" ]] && sudo killall -HUP mDNSResponder && echo macOS DNS Cache Reset.
+}
 
 which kubectl >/dev/null 2>&1 &&
 source <(kubectl completion bash) && # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
