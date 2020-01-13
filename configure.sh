@@ -21,6 +21,14 @@ my_location=$(read_link)
 my_dir="${my_location%/*}"
 
 if [[ $(uname) == 'Linux' ]] ; then
+    if grep -q debian /etc/*release ; then
+        dpkg -l | grep -q libsource-highlight-common || highlight_packages="libsource-highlight-common"
+        dpkg -l | grep -q source-highlight || highlight_packages="$highlight_packages source-highlight"
+        sudo apt-get install libsource-highlight-common -y $highlight_packages >/dev/null
+    elif grep -q rhel /etc/*release ; then
+        rpm -qa | grep -q source-highlight || sudo yum install source-highlight -y >/dev/null
+    fi
+
     if [ -f ${HOME}/.bashrc ] && ! [ -h ${HOME}/.bashrc ] ; then
         mv ${HOME}/.bashrc ${my_dir}/.bashrc_old
     fi
@@ -31,15 +39,17 @@ if [[ $(uname) == 'Linux' ]] ; then
     fi
     ln -fs ${my_dir}/inputrc ${HOME}/.inputrc
 
-    if [ -f ${HOME}/.screenrc ] && !  [ -h ${HOME}/.screenrc ] ; then
+    if [ -f ${HOME}/.screenrc ] && ! [ -h ${HOME}/.screenrc ] ; then
         mv ${HOME}/.screenrc ${my_dir}/.screen_old
     fi  
     ln -fs ${my_dir}/screenrc ${HOME}/.screenrc
 
-    if [ -x /usr/bin/dircolors ]; then
-        dircolors_config_string="eval \`dircolors ${my_dir}/dir_colors/dircolors.ansi-dark\`"
-        grep -q "$dircolors_config_string" bashrc || echo "$dircolors_config_string" >> ${my_dir}/bashrc
+    if [ -d ${HOME}/.dir_colors ] ; then
+        ! [ -h ${HOME}/.dir_colors/dircolors.ansi-dark ] && mv ${HOME}/.dir_colors ${my_dir}/.dir_colors_old
+    else
+        mkdir -p ${HOME}/.dir_colors
     fi
+    ln -fs ${my_dir}/dir_colors/dircolors.ansi-dark  ${HOME}/.dir_colors/dircolors.ansi-dark
 fi
 
 

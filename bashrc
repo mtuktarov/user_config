@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 export PATH=$PATH/usr/local/bin:/sbin:/usr/sbin:/bin:/usr/bin
 
 if [ -f /etc/bashrc ]; then
@@ -13,7 +14,7 @@ alias ll='ls -la'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-
+export LESS=' -R '
 [ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
 [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && source /usr/share/git-core/contrib/completion/git-prompt.sh
 [ -f /usr/local/etc/bash_completion.d/git-prompt.sh ] && source /usr/local/etc/bash_completion.d/git-prompt.sh
@@ -32,4 +33,18 @@ PS1="\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[34m\]\h\[\033[36m\]\w\[
 
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUPSTREAM="auto"
-eval `dircolors /home/mtuktarov/vim/dir_colors/dircolors.ansi-dark`
+
+if [ -x /usr/bin/dircolors ] && [ -f $HOME/.dir_colors/dircolors.ansi-dark ]; then
+    eval `dircolors $HOME/.dir_colors/dircolors.ansi-dark`
+fi
+
+if [[ $(uname) == 'Linux' ]] ; then
+    if  grep -q debian /etc/*release ; then
+        source_highlight_path="$(dpkg -L libsource-highlight-common | grep lesspipe)"
+    elif grep -q rhel /etc/*release ; then
+        source_highlight_path="rpm -ql source-highlight | grep lesspipe"
+    fi
+    if [ -f $source_highlight_path ] ; then
+        export LESSOPEN="| $source_highlight_path %s"
+    fi
+fi
