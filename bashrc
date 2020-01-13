@@ -29,13 +29,11 @@ fi
 
 LESSPIPE=`which src-hilite-lesspipe.sh`    
 [ -f $LESSPIPE ] && export LESSOPEN="| ${LESSPIPE} %s"
-export LESS=' -R -X -F '
+export LESS=' -R '
 
 which kubectl >/dev/null 2>&1 &&
 source <(kubectl completion bash) && # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
 alias k=kubectl && complete -F __start_kubectl k
-force_color_prompt=yes
-xterm-color|*-256color) color_prompt=yes;;
 
 PS1="\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[34m\]\h\[\033[36m\]\w\[\e[32m\]\$(__git_ps1)\[\e[m\]$ "
 
