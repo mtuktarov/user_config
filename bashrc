@@ -9,7 +9,6 @@ __git_ps1(){
     return 0
 }
 
-alias ls='ls --color=auto'
 alias ll='ls -la'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -22,6 +21,8 @@ export LESS=' -R '
 clear_dns(){
     [[ $(uname) == "Darwin" ]] && sudo killall -HUP mDNSResponder && echo macOS DNS Cache Reset.
 }
+[[ $(uname) == "Darwin" ]] && export CLICOLOR=1
+
 
 which kubectl >/dev/null 2>&1 &&
 source <(kubectl completion bash) && # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
@@ -39,12 +40,17 @@ if [ -x /usr/bin/dircolors ] && [ -f $HOME/.dir_colors/dircolors.ansi-dark ]; th
 fi
 
 if [[ $(uname) == 'Linux' ]] ; then
+    alias ls='ls --color=auto'
     if  grep -q debian /etc/*release ; then
-        source_highlight_path="$(dpkg -L libsource-highlight-common | grep lesspipe)"
+        LESSPIPE=`dpkg -L libsource-highlight-common | grep lesspipe`
     elif grep -q rhel /etc/*release ; then
-        source_highlight_path="rpm -ql source-highlight | grep lesspipe"
+        LESSPIPE=`rpm -ql source-highlight | grep lesspipe`
     fi
-    if [ -f $source_highlight_path ] ; then
-        export LESSOPEN="| $source_highlight_path %s"
-    fi
+elif [[ $(uname) == "Darwin" ]] ; then
+    LESSPIPE=`which src-hilite-lesspipe.sh`
+fi
+
+if [ -f $source_highlight_path ] ; then
+    export LESSOPEN="| ${LESSPIPE} %s"
+    export LESS=' -R -X -F '
 fi

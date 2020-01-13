@@ -50,8 +50,11 @@ if [[ $(uname) == 'Linux' ]] ; then
         mkdir -p ${HOME}/.dir_colors
     fi
     ln -fs ${my_dir}/dir_colors/dircolors.ansi-dark  ${HOME}/.dir_colors/dircolors.ansi-dark
+elif [[ $(uname) == "Darwin" ]] ; then
+    if which -s brew ; then
+        brew install source-highlight
+    fi
 fi
-
 
 if [ -f ${HOME}/.vimrc ] && ! [ -h ${HOME}/.vimrc ] ; then
     mv ${HOME}/.vimrc ${my_dir}/.vimrc_old
