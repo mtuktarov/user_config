@@ -25,6 +25,7 @@ if [[ $(uname) == 'Linux' ]] ; then
         dpkg -l | grep -q libsource-highlight-common || highlight_packages="libsource-highlight-common"
         dpkg -l | grep -q source-highlight || highlight_packages="$highlight_packages source-highlight"
         sudo apt-get install libsource-highlight-common -y $highlight_packages >/dev/null
+        which src-hilite-lesspipe.sh >/dev/null || sudo ln -fs /usr/share/source-highlight/src-hilite-lesspipe.sh /usr/bin/src-hilite-lesspipe.sh
     elif grep -q rhel /etc/*release ; then
         rpm -qa | grep -q source-highlight || sudo yum install source-highlight -y >/dev/null
     fi
@@ -44,12 +45,11 @@ if [[ $(uname) == 'Linux' ]] ; then
     fi  
     ln -fs ${my_dir}/screenrc ${HOME}/.screenrc
 
-    if [ -d ${HOME}/.dir_colors ] ; then
-        ! [ -h ${HOME}/.dir_colors/dircolors.ansi-dark ] && mv ${HOME}/.dir_colors ${my_dir}/.dir_colors_old
-    else
-        mkdir -p ${HOME}/.dir_colors
+    if [ -f ${HOME}/.dir_colors ] && ! [ -h ${HOME}/.dir_colors ]; then
+         mv ${HOME}/.dir_colors ${my_dir}/.dir_colors_old
     fi
-    ln -fs ${my_dir}/dir_colors/dircolors.ansi-dark  ${HOME}/.dir_colors/dircolors.ansi-dark
+    ln -fs ${my_dir}/dir_colors/dircolors.ansi-dark  ${HOME}/.dir_colors
+
 elif [[ $(uname) == "Darwin" ]] ; then
     if which -s brew ; then
         brew install source-highlight
