@@ -32,3 +32,4 @@ PS1="\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[34m\]\h\[\033[36m\]\w\[
 
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUPSTREAM="auto"
+eval `dircolors /home/mtuktarov/vim/dir_colors/dircolors.ansi-dark`

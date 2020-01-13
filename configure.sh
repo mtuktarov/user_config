@@ -37,7 +37,8 @@ if [[ $(uname) == 'Linux' ]] ; then
     ln -fs ${my_dir}/screenrc ${HOME}/.screenrc
 
     if [ -x /usr/bin/dircolors ]; then
-        echo "eval \`dircolors ${my_dir}/dir_colors/dircolors.ansi-dark\`" >> ${my_dir}/bashrc
+        dircolors_config_string="eval \`dircolors ${my_dir}/dir_colors/dircolors.ansi-dark\`"
+        grep -q "$dircolors_config_string" bashrc || echo "$dircolors_config_string" >> ${my_dir}/bashrc
     fi
 fi
 
