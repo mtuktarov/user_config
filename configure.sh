@@ -21,24 +21,28 @@ my_location=$(read_link)
 my_dir="${my_location%/*}"
 
 if [[ $(uname) == 'Linux' ]] ; then
-    if [ -f ${HOME}/.bashrc ] ; then
+    if [ -f ${HOME}/.bashrc ] && ! [ -h ${HOME}/.bashrc ] ; then
         mv ${HOME}/.bashrc ${my_dir}/.bashrc_old
     fi
     ln -fs ${my_dir}/bashrc ${HOME}/.bashrc
 
-    if [ -f ${HOME}/.inputrc ] ; then
+    if [ -f ${HOME}/.inputrc ] && ! [ -h ${HOME}/.inputrc ] ; then
         mv ${HOME}/.inputrc ${my_dir}/.input_old
     fi
     ln -fs ${my_dir}/inputrc ${HOME}/.inputrc
 
-    if [ -f ${HOME}/.screenrc ] ; then
+    if [ -f ${HOME}/.screenrc ] && !  [ -h ${HOME}/.screenrc ] ; then
         mv ${HOME}/.screenrc ${my_dir}/.screen_old
     fi  
     ln -fs ${my_dir}/screenrc ${HOME}/.screenrc
+
+    if [ -x /usr/bin/dircolors ]; then
+        echo "eval \`dircolors ${my_dir}/dir_colors/dircolors.ansi-dark\`" >> ${my_dir}/bashrc
+    fi
 fi
 
 
-if [ -f ${HOME}/.vimrc ] ; then
+if [ -f ${HOME}/.vimrc ] && ! [ -h ${HOME}/.vimrc ] ; then
     mv ${HOME}/.vimrc ${my_dir}/.vimrc_old
 fi  
 ln -fs ${my_dir}/vimrc ${HOME}/.vimrc
