@@ -29,6 +29,8 @@ if [[ $(uname) == 'Linux' ]] ; then
     elif grep -q rhel /etc/*release ; then
         rpm -qa | grep -q source-highlight || sudo yum install source-highlight -y >/dev/null
     fi
+    style_file=/usr/share/source-highlight/esc.style
+    [ -f $style_file ] && grep -q "function black b;" $style_file && sudo sed -Ei 's/(function) black( b;)/\1\2/g' $style_file
 
     if [ -f ${HOME}/.bashrc ] && ! [ -h ${HOME}/.bashrc ] ; then
         mv ${HOME}/.bashrc ${my_dir}/.bashrc_old
