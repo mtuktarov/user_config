@@ -1,6 +1,8 @@
 set rtp+=~/vim
 execute pathogen#infect()
 execute pathogen#helptags()
+set nocompatible
+set t_Co=256
 syntax on
 set tabstop=4
 set shiftwidth=4
