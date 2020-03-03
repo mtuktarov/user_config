@@ -43,14 +43,14 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 if [ -x /usr/bin/dircolors ] && [ -f $HOME/.dir_colors ]; then
     eval `dircolors $HOME/.dir_colors`
 fi
-export LC_NUMERIC="ru_RU.UTF-8"
-export LC_TIME="ru_RU.UTF-8"
-export LC_MONETARY="ru_RU.UTF-8"
-export LC_PAPER="ru_RU.UTF-8"
-export LC_NAME="ru_RU.UTF-8"
-export LC_ADDRESS="ru_RU.UTF-8"
-export LC_TELEPHONE="ru_RU.UTF-8"
-export LC_MEASUREMENT="ru_RU.UTF-8"
-export LC_IDENTIFICATION="ru_RU.UTF-8"
+export LC_NUMERIC="en_US.UTF-8"
+export LC_TIME="en_US.UTF-8"
+export LC_MONETARY="en_US.UTF-8"
+export LC_PAPER="en_US.UTF-8"
+export LC_NAME="en_US.UTF-8"
+export LC_ADDRESS="en_US.UTF-8"
+export LC_TELEPHONE="en_US.UTF-8"
+export LC_MEASUREMENT="en_US.UTF-8"
+export LC_IDENTIFICATION="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export LANG=C 
