@@ -9,7 +9,6 @@ set shiftwidth=4
 set softtabstop=4
 "set mouse=i
 set expandtab
-set number
 set showcmd
 set cursorline
 set wildmenu
@@ -21,4 +20,7 @@ set hlsearch            " highlight matches
 filetype plugin indent on
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
-colorscheme dracula
+nnoremap <F2> :<C-U>setlocal lcs=tab:>-,trail:-,eol:$ list! list? <CR>
+nnoremap <F3> :<C-U>set number! number? <CR>
+colorscheme dracula  
+
