@@ -36,7 +36,7 @@ source <(kubectl completion bash) && # setup autocomplete in bash into the curre
 alias k=kubectl && complete -F __start_kubectl k
 
 PS1="\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[34m\]\H\[\033[36m\]\w\[\e[32m\]\$(__git_ps1)\[\e[m\]$ "
-
+export TERM=xterm-256color
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
@@ -54,3 +54,4 @@ export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export LANG=C 
+
