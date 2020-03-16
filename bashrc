@@ -22,7 +22,8 @@ if [[ $(uname) == "Darwin" ]] ; then
 elif [[ $(uname) == 'Linux' ]] ; then
     alias ls='ls --color=auto'
 fi
-
+alias docker_rm='docker rm -f $(docker ps -a | awk '{ print $1}' | tail -n +2)'
+alias docker_rmi='docker rmi $(docker images | awk '{ print $3}' | tail -n +2)'
 [ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
 [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && source /usr/share/git-core/contrib/completion/git-prompt.sh
 [ -f /usr/local/etc/bash_completion.d/git-prompt.sh ] && source /usr/local/etc/bash_completion.d/git-prompt.sh
