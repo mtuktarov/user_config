@@ -13,6 +13,18 @@ clear_dns(){
     [[ $(uname) == "Darwin" ]] && sudo killall -HUP mDNSResponder && echo macOS DNS Cache Reset.
 }
 
+docker_rm(){
+    which docker >/dev/null 2>&1 && docker rm -f $(docker ps -a | awk '{ print $1}' | tail -n +2)
+}
+
+docker_rmi(){
+    which docker >/dev/null 2>&1 && docker rmi $(docker images | awk '{ print $3}' | tail -n +2)
+}
+
+pods_rm(){
+    which kubectl >/dev/null 2>&1 && kubectl delete po --force --grace-period=0 $(kubectl get po | awk '{print $1}' | tail -n +2)
+}
+
 alias ll='ls -la'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -23,16 +35,7 @@ elif [[ $(uname) == 'Linux' ]] ; then
     alias ls='ls --color=auto'
 fi
 
-which docker >/dev/null 2>&1 &&
-{
-    alias docker_rm='docker rm -f $(docker ps -a | awk '"'{ print $1}'"' | tail -n +2)'
-    alias docker_rmi='docker rmi $(docker images | awk '"'{ print $3}'"' | tail -n +2)'
-}
-which kubectl >/dev/null 2>&1 &&
-{
-    alias pods_rm='kubectl delete po --force --grace-period=0 $(kubectl get po | awk '"'{print $1}'"' | tail -n +2)'
-}
-    [ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
+[ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
 [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && source /usr/share/git-core/contrib/completion/git-prompt.sh
 [ -f /usr/local/etc/bash_completion.d/git-prompt.sh ] && source /usr/local/etc/bash_completion.d/git-prompt.sh
 
