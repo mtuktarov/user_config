@@ -25,12 +25,12 @@ fi
 
 which docker >/dev/null 2>&1 &&
 {
-    alias docker_rm="docker rm -f $(docker ps -a | awk '{ print $1}' | tail -n +2)"
-    alias docker_rmi="docker rmi $(docker images | awk '{ print $3}' | tail -n +2)" 
+    alias docker_rm='docker rm -f $(docker ps -a | awk '"'{ print $1}'"' | tail -n +2)'
+    alias docker_rmi='docker rmi $(docker images | awk '"'{ print $3}'"' | tail -n +2)'
 }
 which kubectl >/dev/null 2>&1 &&
 {
-    alias pods_rm="kubectl delete po --force --grace-period=0 $(kubectl get po | awk '{print $1}' | tail -n +2)"
+    alias pods_rm='kubectl delete po --force --grace-period=0 $(kubectl get po | awk '"'{print $1}'"' | tail -n +2)'
 }
     [ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
 [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && source /usr/share/git-core/contrib/completion/git-prompt.sh
