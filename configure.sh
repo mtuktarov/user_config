@@ -63,4 +63,9 @@ if [ -f ${HOME}/.vimrc ] && ! [ -h ${HOME}/.vimrc ] ; then
 fi  
 ln -fs ${my_dir}/vimrc ${HOME}/.vimrc
 
+if [ -f ${HOME}/.vim ] && ! [ -h ${HOME}/.vim ] ; then
+    mv ${HOME}/.vim ${my_dir}/.vim_old
+fi
+ln -fs ${my_dir} ${HOME}/.vim
+
 git submodule update --init
