@@ -54,7 +54,12 @@ if [[ $(uname) == 'Linux' ]] ; then
 
 elif [[ $(uname) == "Darwin" ]] ; then
     which -s brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    brew install git
     brew install source-highlight
+    brew install docker-completion
+    brew install bash-completion
+    brew install pip-completion
+    brew install docker-completion
 fi
 
 if [ -f ${HOME}/.vimrc ] && ! [ -h ${HOME}/.vimrc ] ; then
