@@ -24,6 +24,8 @@ pods_rm(){
     which kubectl >/dev/null 2>&1 && kubectl delete po --force --grace-period=0 $(kubectl get po | awk '{print $1}' | tail -n +2)
 }
 
+command -v keychain && eval `keychain --eval --agents ssh --inherit any id_rsa`
+
 alias ll='ls -la'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -34,15 +36,13 @@ elif [[ $(uname) == 'Linux' ]] ; then
     alias ls='ls --color=auto'
 fi
 
-eval `keychain --eval --agents ssh --inherit any id_rsa`
 if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
     __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
     source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
 fi
 
-LESSPIPE=`which src-hilite-lesspipe.sh`    
-[ -f $LESSPIPE ] && export LESSOPEN="| ${LESSPIPE} %s"
-export LESS=' -R -F '
+LESSPIPE=`which src-hilite-lesspipe.sh 2>&1`
+[ -f $LESSPIPE ] && export LESSOPEN="| ${LESSPIPE} %s" && LESS=' -R -F '
 
 which kubectl >/dev/null 2>&1 &&
 source <(kubectl completion bash) && # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
