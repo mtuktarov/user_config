@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 read_link(){
     target_file=$(which ./$0)
     cd `dirname $target_file`
@@ -20,8 +20,7 @@ read_link(){
 my_location=$(read_link)
 my_dir="${my_location%/*}"
 
-which -s brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-command -v brew ||  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+command -v brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 command -v brew && {
     brew install git
     brew install bash-git-prompt
