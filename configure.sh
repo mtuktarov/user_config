@@ -22,6 +22,7 @@ my_dir="${my_location%/*}"
 
 command -v brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 command -v brew && {
+    brew install curl
     brew install git
     brew install bash-git-prompt
     brew install source-highlight
@@ -33,6 +34,7 @@ command -v brew && {
 };
 
 if [[ $(uname) == 'Linux' ]] ; then
+    echo 'PATH=$HOME.linuxbrew/bin:$PATH' >> bashrc
     style_file=/usr/share/source-highlight/esc.style
     [ -f $style_file ] && grep -q "function black b;" $style_file && sudo sed -Ei 's/(function) black( b;)/\1\2/g' $style_file
 
