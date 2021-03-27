@@ -55,6 +55,7 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 if [ -x /usr/bin/dircolors ] && [ -f $HOME/.dir_colors ]; then
     eval `dircolors $HOME/.dir_colors`
 fi
+export BASH_SILENCE_DEPRECATION_WARNING=1
 export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_MONETARY="en_US.UTF-8"
