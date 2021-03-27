@@ -41,7 +41,7 @@ if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
     source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
 fi
 
-LESSPIPE=`which src-hilite-lesspipe.sh 2>&1`
+LESSPIPE=`which src-hilite-lesspipe.sh 2>/dev/null`
 [ -f $LESSPIPE ] && export LESSOPEN="| ${LESSPIPE} %s" && LESS=' -R -F '
 
 which kubectl >/dev/null 2>&1 &&
