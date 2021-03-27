@@ -35,9 +35,6 @@ elif [[ $(uname) == 'Linux' ]] ; then
     alias ls='ls --color=auto'
 fi
 
-[ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
-[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && source /usr/share/git-core/contrib/completion/git-prompt.sh
-[ -f /usr/local/etc/bash_completion.d/git-prompt.sh ] && source /usr/local/etc/bash_completion.d/git-prompt.sh
 
 LESSPIPE=`which src-hilite-lesspipe.sh`    
 [ -f $LESSPIPE ] && export LESSOPEN="| ${LESSPIPE} %s"
@@ -51,6 +48,7 @@ PS1="\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[34m\]\H\[\033[36m\]\w\[
 export TERM=xterm-256color
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUPSTREAM="auto"
+
 
 if [ -x /usr/bin/dircolors ] && [ -f $HOME/.dir_colors ]; then
     eval `dircolors $HOME/.dir_colors`

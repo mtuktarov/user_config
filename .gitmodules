@@ -7,3 +7,7 @@
 [submodule "bundle/dracula"]
 	path = bundle/dracula
 	url = http://github.com/dracula/vim.git
+
+[submodule "bundle/bash-git-prompt"]
+    path = bundle/bash-git-prompt
+    url = https://github.com/magicmonty/bash-git-prompt.git

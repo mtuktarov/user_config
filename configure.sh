@@ -53,9 +53,8 @@ if [[ $(uname) == 'Linux' ]] ; then
     ln -fs ${my_dir}/dir_colors/dircolors.ansi-dark  ${HOME}/.dir_colors
 
 elif [[ $(uname) == "Darwin" ]] ; then
-    if which -s brew ; then
-        brew install source-highlight
-    fi
+    which -s brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    brew install source-highlight
 fi
 
 if [ -f ${HOME}/.vimrc ] && ! [ -h ${HOME}/.vimrc ] ; then
@@ -67,5 +66,12 @@ if [ -f ${HOME}/.vim ] && ! [ -h ${HOME}/.vim ] ; then
     mv ${HOME}/.vim ${my_dir}/.vim_old
 fi
 ln -fs ${my_dir} ${HOME}/.vim
+
+cat << EOF >> bashrc
+if [ -f "$my_dir/.bash-git-prompt/gitprompt.sh" ]; then
+    GIT_PROMPT_ONLY_IN_REPO=1
+    source $my_dir/.bash-git-prompt/gitprompt.sh
+fi
+EOF
 
 git submodule update --init
