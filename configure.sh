@@ -20,6 +20,16 @@ read_link(){
 my_location=$(read_link)
 my_dir="${my_location%/*}"
 
+which -s brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install git
+brew install bash-git-prompt
+brew install source-highlight
+brew install docker-completion
+brew install bash-completion
+brew install pip-completion
+brew install docker-completion
+brew install keychain
+
 if [[ $(uname) == 'Linux' ]] ; then
     if grep -q debian /etc/*release ; then
         dpkg -l | grep -q libsource-highlight-common || highlight_packages="libsource-highlight-common"
@@ -53,15 +63,8 @@ if [[ $(uname) == 'Linux' ]] ; then
     ln -fs ${my_dir}/dir_colors/dircolors.ansi-dark  ${HOME}/.dir_colors
 
 elif [[ $(uname) == "Darwin" ]] ; then
-    which -s brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    brew install git
-    brew install source-highlight
-    brew install docker-completion
-    brew install bash-completion
-    brew install pip-completion
-    brew install docker-completion
+    echo "" >> .bash_profile
 fi
-
 if [ -f ${HOME}/.vimrc ] && ! [ -h ${HOME}/.vimrc ] ; then
     mv ${HOME}/.vimrc ${my_dir}/.vimrc_old
 fi  
@@ -71,12 +74,5 @@ if [ -f ${HOME}/.vim ] && ! [ -h ${HOME}/.vim ] ; then
     mv ${HOME}/.vim ${my_dir}/.vim_old
 fi
 ln -fs ${my_dir} ${HOME}/.vim
-
-cat << EOF >> bashrc
-if [ -f "$my_dir/.bash-git-prompt/gitprompt.sh" ]; then
-    GIT_PROMPT_ONLY_IN_REPO=1
-    source $my_dir/.bash-git-prompt/gitprompt.sh
-fi
-EOF
 
 git submodule update --init
