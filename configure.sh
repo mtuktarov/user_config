@@ -21,24 +21,19 @@ my_location=$(read_link)
 my_dir="${my_location%/*}"
 
 which -s brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install git
-brew install bash-git-prompt
-brew install source-highlight
-brew install docker-completion
-brew install bash-completion
-brew install pip-completion
-brew install docker-completion
-brew install keychain
+command -v brew ||  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+command -v brew && {
+    brew install git
+    brew install bash-git-prompt
+    brew install source-highlight
+    brew install docker-completion
+    brew install bash-completion
+    brew install pip-completion
+    brew install docker-completion
+    brew install keychain
+};
 
 if [[ $(uname) == 'Linux' ]] ; then
-    if grep -q debian /etc/*release ; then
-        dpkg -l | grep -q libsource-highlight-common || highlight_packages="libsource-highlight-common"
-        dpkg -l | grep -q source-highlight || highlight_packages="$highlight_packages source-highlight"
-        sudo apt-get install libsource-highlight-common -y $highlight_packages >/dev/null
-        which src-hilite-lesspipe.sh >/dev/null || sudo ln -fs /usr/share/source-highlight/src-hilite-lesspipe.sh /usr/bin/src-hilite-lesspipe.sh
-    elif grep -q rhel /etc/*release ; then
-        rpm -qa | grep -q source-highlight || sudo yum install source-highlight -y >/dev/null
-    fi
     style_file=/usr/share/source-highlight/esc.style
     [ -f $style_file ] && grep -q "function black b;" $style_file && sudo sed -Ei 's/(function) black( b;)/\1\2/g' $style_file
 

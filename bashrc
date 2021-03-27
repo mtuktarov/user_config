@@ -43,7 +43,7 @@ fi
 
 LESSPIPE=`which src-hilite-lesspipe.sh`    
 [ -f $LESSPIPE ] && export LESSOPEN="| ${LESSPIPE} %s"
-export LESS=' -R '
+export LESS=' -R -F '
 
 which kubectl >/dev/null 2>&1 &&
 source <(kubectl completion bash) && # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
