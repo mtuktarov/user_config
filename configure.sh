@@ -20,6 +20,9 @@ read_link(){
 my_location=$(read_link)
 my_dir="${my_location%/*}"
 
+if [[ $(uname) == 'Linux' ]] ; then
+    export HOMEBREW_FORCE_HOMEBREW_ON_LINUX=true
+fi
 command -v brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 command -v brew && {
     brew install curl
