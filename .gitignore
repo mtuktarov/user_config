@@ -1,3 +1,4 @@
 **/.vagrant
 **/*old
 **/*.swp
+.user_config
