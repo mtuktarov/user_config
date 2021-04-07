@@ -42,7 +42,8 @@ if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
 fi
 
 LESSPIPE=`which src-hilite-lesspipe.sh 2>/dev/null`
-[ -f $LESSPIPE ] && export LESSOPEN="| ${LESSPIPE} %s" && LESS=' -R -F '
+[ -f $LESSPIPE ] && export LESSOPEN="| ${LESSPIPE} %s"
+export LESS=' -R -F -X '
 
 which kubectl >/dev/null 2>&1 &&
 source <(kubectl completion bash) && # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
