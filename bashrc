@@ -41,6 +41,8 @@ if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
     source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
 fi
 
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
 LESSPIPE=`which src-hilite-lesspipe.sh 2>/dev/null`
 [ -f $LESSPIPE ] && export LESSOPEN="| ${LESSPIPE} %s"
 export LESS=' -R -F -X '

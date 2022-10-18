@@ -19,21 +19,20 @@ read_link(){
 }
 my_location=$(read_link)
 my_dir="${my_location%/*}"
-
 if [[ $(uname) == 'Linux' ]] ; then
     export HOMEBREW_FORCE_HOMEBREW_ON_LINUX=true
 fi
-command -v brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-command -v brew && {
-    brew install curl
-    brew install git
-    brew install bash-git-prompt
-    brew install source-highlight
-    brew install docker-completion
-    brew install bash-completion
-    brew install pip-completion
-    brew install docker-completion
-    brew install keychain
+command -v brew 2>&1 > /dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew_list=$(brew list)
+command -v brew 2>&1 > /dev/null && {
+    echo "$brew_list" | grep -q ^curl$ || brew install curl
+    echo "$brew_list" | grep -q ^git$ || brew install git
+    echo "$brew_list" | grep -q ^bash-git-prompt$ || brew install bash-git-prompt
+    echo "$brew_list" | grep -q ^source-highlight$ || brew install source-highlight
+    echo "$brew_list" | grep -q ^docker-completion$ || brew install docker-completion
+    echo "$brew_list" | grep -q ^bash-completion$ || brew install bash-completion
+    echo "$brew_list" | grep -q ^pip-completion$ || brew install pip-completion
+    echo "$brew_list" | grep -q ^keychain$ || brew install keychain
 };
 
 if [[ $(uname) == 'Linux' ]] ; then
@@ -62,7 +61,8 @@ if [[ $(uname) == 'Linux' ]] ; then
     ln -fs ${my_dir}/dir_colors/dircolors.ansi-dark  ${HOME}/.dir_colors
 
 elif [[ $(uname) == "Darwin" ]] ; then
-    echo "" >> .bash_profile
+    grep -q '[[ -r "'$my_dir'/bashrc" ]] && . "'$my_dir'/bashrc"' ~/.bash_profile || \
+    { echo ; echo "[[ -r \"$my_dir/bashrc\" ]] && . \"$my_dir/bashrc\"" >> ~/.bash_profile ;}
 fi
 if [ -f ${HOME}/.vimrc ] && ! [ -h ${HOME}/.vimrc ] ; then
     mv ${HOME}/.vimrc ${my_dir}/.vimrc_old
